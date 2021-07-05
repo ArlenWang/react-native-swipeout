@@ -1,6 +1,6 @@
 {
   "name": "@arlenwang/react-native-swipeout",
-  "version": "2.3.8",
+  "version": "2.3.9",
   "description": "iOS-style swipeout buttons behind component",
   "main": "dist/index.js",
   "types": "index.d.ts",

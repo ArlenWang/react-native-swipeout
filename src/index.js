@@ -433,7 +433,7 @@ const Swipeout = createReactClass({
         text={btn.text}
         type={btn.type}
         underlayColor={btn.underlayColor}
-        width={this.state.btnWidth}
+        width={btn.buttonWidth||this.state.btnWidth}
       />
     );
   }
