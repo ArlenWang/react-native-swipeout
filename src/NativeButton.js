@@ -105,9 +105,10 @@ const NativeButton = createReactClass({
     return (
       <TouchableHighlight
         {...buttonProps}
-        style={[styles.button, this.props.style, disabledStyle]}
         underlayColor={this.props.underlayColor}>
+        <View style={[styles.button, this.props.style, disabledStyle]}>
         {this._renderText()}
+        </View>
       </TouchableHighlight>
     );
   }

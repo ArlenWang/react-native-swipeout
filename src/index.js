@@ -27,6 +27,7 @@ const SwipeoutBtn = createReactClass({
     text: PropTypes.node,
     type: PropTypes.string,
     underlayColor: PropTypes.string,
+    buttonWidth: PropTypes.number,
   },
 
   getDefaultProps: function () {
@@ -47,34 +48,36 @@ const SwipeoutBtn = createReactClass({
   render: function () {
     var btn = this.props;
 
-    var styleSwipeoutBtn = [styles.swipeoutBtn];
+    var styleSwipeoutBtn = {...styles.swipeoutBtn};
 
     //  apply "type" styles (delete || primary || secondary)
-    if (btn.type === 'delete') styleSwipeoutBtn.push(styles.colorDelete);
-    else if (btn.type === 'primary') styleSwipeoutBtn.push(styles.colorPrimary);
-    else if (btn.type === 'secondary') styleSwipeoutBtn.push(styles.colorSecondary);
+    if (btn.type === 'delete') styleSwipeoutBtn = {...styleSwipeoutBtn,...styles.colorDelete};//styleSwipeoutBtn.push(styles.colorDelete);
+    else if (btn.type === 'primary') styleSwipeoutBtn = {...styleSwipeoutBtn,...styles.colorPrimary};//styleSwipeoutBtn.push(styles.colorPrimary);
+    else if (btn.type === 'secondary') styleSwipeoutBtn = {...styleSwipeoutBtn,...styles.colorSecondary};//styleSwipeoutBtn.push(styles.colorSecondary);
 
     //  apply background color
-    if (btn.backgroundColor) styleSwipeoutBtn.push([{ backgroundColor: btn.backgroundColor }]);
-
-    styleSwipeoutBtn.push([{
+    if (btn.backgroundColor) styleSwipeoutBtn = {...styleSwipeoutBtn,backgroundColor: btn.backgroundColor};//styleSwipeoutBtn.push([{ backgroundColor: btn.backgroundColor }]);
+    styleSwipeoutBtn = {
+      ...styleSwipeoutBtn,
       height: btn.height,
-      width: btn.width,
-    }]);
-
+      width: btn.buttonWidth||btn.width,
+    };
+    // styleSwipeoutBtn.push({
+    //   height: btn.height,
+    //   width: btn.buttonWidth||btn.width,
+    // });
     var styleSwipeoutBtnComponent = [];
 
     //  set button dimensions
-    styleSwipeoutBtnComponent.push([{
+    styleSwipeoutBtnComponent.push({
       height: btn.height,
       width: btn.width,
-    }]);
+    });
 
     var styleSwipeoutBtnText = [styles.swipeoutBtnText];
 
     //  apply text color
     if (btn.color) styleSwipeoutBtnText.push({color: btn.color });
-
     return (
       <NativeButton
         onPress={this.props.onPress}
@@ -362,7 +365,7 @@ const Swipeout = createReactClass({
     };
     var styleRightPos = {
       right: {
-        left: Math.abs(contentWidth + Math.max(limit, posX)),
+        //left: Math.abs(contentWidth + Math.max(limit, posX)),
         right: 0,
       },
     };
@@ -410,6 +413,7 @@ const Swipeout = createReactClass({
 
   _renderButtons: function (buttons, isVisible, style) {
     if (buttons && isVisible) {
+      console.log('style',style)
       return (<View style={style}>
         {buttons.map(this._renderButton)}
       </View>);
