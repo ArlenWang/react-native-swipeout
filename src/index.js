@@ -27,7 +27,7 @@ const SwipeoutBtn = createReactClass({
     text: PropTypes.node,
     type: PropTypes.string,
     underlayColor: PropTypes.string,
-    buttonWidth: PropTypes.number,
+    buttonAddWidth: PropTypes.number,
   },
 
   getDefaultProps: function () {
@@ -412,7 +412,7 @@ const Swipeout = createReactClass({
     if (buttons && isVisible) {
       let addWidth = 0;
       buttons.forEach((item,index)=>{
-        if(item.buttonWidth)addWidth +=item.buttonWidth
+        if(item.buttonAddWidth)addWidth +=item.buttonAddWidth
       })
       if(addWidth>0)style.left = style.left- addWidth;
       return (<View style={style}>
