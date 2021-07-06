@@ -57,15 +57,12 @@ const SwipeoutBtn = createReactClass({
 
     //  apply background color
     if (btn.backgroundColor) styleSwipeoutBtn = {...styleSwipeoutBtn,backgroundColor: btn.backgroundColor};//styleSwipeoutBtn.push([{ backgroundColor: btn.backgroundColor }]);
+    let btnWidth = btn.buttonAddWidth?(btn.buttonAddWidth+btn.width):btn.width
     styleSwipeoutBtn = {
       ...styleSwipeoutBtn,
       height: btn.height,
-      width: btn.buttonWidth||btn.width,
+      width: btnWidth,
     };
-    // styleSwipeoutBtn.push({
-    //   height: btn.height,
-    //   width: btn.buttonWidth||btn.width,
-    // });
     var styleSwipeoutBtnComponent = [];
 
     //  set button dimensions
@@ -429,6 +426,7 @@ const Swipeout = createReactClass({
   },
 
   _renderButton: function (btn, i) {
+    let buttonAddWidth = btn.buttonAddWidth?(btn.buttonAddWidth+this.state.btnWidth):this.state.btnWidth
     return (
       <SwipeoutBtn
         backgroundColor={btn.backgroundColor}
@@ -441,7 +439,7 @@ const Swipeout = createReactClass({
         text={btn.text}
         type={btn.type}
         underlayColor={btn.underlayColor}
-        width={btn.buttonWidth||this.state.btnWidth}
+        width={buttonAddWidth}
       />
     );
   }
