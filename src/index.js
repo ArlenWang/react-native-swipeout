@@ -365,10 +365,11 @@ const Swipeout = createReactClass({
     };
     var styleRightPos = {
       right: {
-        //left: Math.abs(contentWidth + Math.max(limit, posX)),
+        left: Math.abs(contentWidth + Math.max(limit, posX)),
         right: 0,
       },
     };
+    //console.log('contentWidth',styleRightPos.right.left,contentWidth,limit,posX)
     var styleContentPos = {
       content: {
         transform: [{ translateX: this._rubberBandEasing(posX, limit) }],
@@ -378,8 +379,7 @@ const Swipeout = createReactClass({
     var styleContent = [styles.swipeoutContent];
     styleContent.push(styleContentPos.content);
 
-    var styleRight = [styles.swipeoutBtns];
-    styleRight.push(styleRightPos.right);
+    var styleRight = {...styles.swipeoutBtns,...styleRightPos.right};
 
     var styleLeft = [styles.swipeoutBtns];
     styleLeft.push(styleLeftPos.left);
@@ -413,7 +413,11 @@ const Swipeout = createReactClass({
 
   _renderButtons: function (buttons, isVisible, style) {
     if (buttons && isVisible) {
-      console.log('style',style)
+      let addWidth = 0;
+      buttons.forEach((item,index)=>{
+        if(item.buttonWidth)addWidth +=item.buttonWidth
+      })
+      if(addWidth>0)style.left = style.left- addWidth;
       return (<View style={style}>
         {buttons.map(this._renderButton)}
       </View>);

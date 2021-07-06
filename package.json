@@ -1,11 +1,10 @@
 {
   "name": "@arlenwang/react-native-swipeout",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "iOS-style swipeout buttons behind component",
   "main": "src/index.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && cross-env BABEL_ENV=commonjs babel src --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
