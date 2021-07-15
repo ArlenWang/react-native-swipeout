@@ -47,7 +47,8 @@ onClose          | func   | Yes      |           | (sectionID, rowId, direction:
 right           | array  | Yes      | []        | swipeout buttons on right
 scroll          | func   | Yes      |           | prevent parent scroll
 style           | style  | Yes      |           | style of the container
-sensitivity     | number | Yes      | 50         | change the sensitivity of gesture
+sensitivity     | number | Yes      | 50         | change the sensitivity of gesture x移动大于
+sensitivityVertical | number | Yes  | 50         | change the sensitivity of gesture y移动不大于(<=)
 buttonWidth     | number | Yes      |            | each button width
 
 ##### Button props
