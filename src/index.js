@@ -110,7 +110,7 @@ const Swipeout = createReactClass({
     sensitivity: PropTypes.number,
     buttonWidth: PropTypes.number,
     disabled: PropTypes.bool,
-    sensitivityVertical: PropTypes.number,
+    sensitivityBlock: PropTypes.number,
   },
 
   getDefaultProps: function () {
@@ -119,7 +119,7 @@ const Swipeout = createReactClass({
       rowID: -1,
       sectionID: -1,
       sensitivity: 50,
-      sensitivityVertical: 50,
+      sensitivityBlock: 5,
     };
   },
 
@@ -146,7 +146,7 @@ const Swipeout = createReactClass({
         this.state.openedLeft || this.state.openedRight,
       onMoveShouldSetPanResponderCapture: (event, gestureState) =>
         Math.abs(gestureState.dx) > this.props.sensitivity &&
-        Math.abs(gestureState.dy) <= (this.props.sensitivityVertical||this.props.sensitivity),
+        Math.abs(gestureState.dy) <= this.props.sensitivity,
       onPanResponderGrant: this._handlePanResponderGrant,
       onPanResponderMove: this._handlePanResponderMove,
       onPanResponderRelease: this._handlePanResponderEnd,
@@ -191,12 +191,12 @@ const Swipeout = createReactClass({
     else if (this.state.openedLeft) var posX = gestureState.dx + leftWidth;
 
     //  prevent scroll if moveX is true
-    var moveX = Math.abs(posX) > Math.abs(posY);
+    var moveX = Math.abs(posX) > (Math.abs(posY)*this.props.sensitivityBlock);
     if (this.props.scroll) {
       if (moveX) this.props.scroll(false);
       else this.props.scroll(true);
     }
-    if (this.state.swiping) {
+    if (this.state.swiping && moveX) {
       //  move content to reveal swipeout
       if (posX < 0 && this.props.right) {
         this.setState({ contentPos: Math.min(posX, 0) })
